@@ -1,0 +1,15 @@
+# Apache Rewrite Rules
+
+RewriteEngine On
+
+# Redirect to www
+RewriteCond %{HTTP_HOST} !^www\.|^localhost [NC]
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+# Rewrite index.php
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+(index\.php\s|)([^"]+) [NC]
+RewriteRule ^index\.php(.*)$ /$2 [R=301,L]
+
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)$ $1.php [L]
